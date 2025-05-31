@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:10.11
+    container_name: mariadb-container
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: pw1234
+      MYSQL_DATABASE: tamama
+      MYSQL_USER: welcome
+      MYSQL_PASSWORD: pw1234
+    ports:
+      - "3306:3308"
+    volumes:
+      - ./init-schema.sql:/docker-entrypoint-initdb.d/init-schema.sql:ro
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
