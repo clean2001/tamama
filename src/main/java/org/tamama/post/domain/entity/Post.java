@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.tamama.common.entity.BaseTimeEntity;
+import org.tamama.post.domain.value.Creator;
+import org.tamama.post.domain.value.PostId;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -14,8 +16,7 @@ import org.tamama.common.entity.BaseTimeEntity;
 public class Post extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
-    private Long id;
+    private PostId id;
 
     private String title;
 
@@ -23,4 +24,7 @@ public class Post extends BaseTimeEntity {
     private String contents;
 
     private String imageUrl;
+
+    @Embedded
+    private Creator creator;
 }
