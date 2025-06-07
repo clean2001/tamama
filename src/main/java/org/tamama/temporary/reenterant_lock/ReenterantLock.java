@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit;
 public class ReenterantLock {
     private final RedissonProvider redisProvider;
 
-    public void reenterantLockMethod() throws InterruptedException {
-        RLock lock = redisProvider.createClient().getLock("lockName");
+    public void reenterantLockMethod(String lockName) throws InterruptedException {
+        RLock lock = redisProvider.createClient().getLock(lockName);
         // traditional lock method
         lock.lock();
 
@@ -28,6 +28,20 @@ public class ReenterantLock {
         if (res) {
             try {
                 // ...
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+
+    public void fairLockMethod(String lockName) throws InterruptedException {
+        RLock lock = redisProvider.createClient().getLock(lockName);
+        // or wait for lock acquisition up to 100 seconds
+        // and automatically unlock it after 10 seconds
+        boolean res = lock.tryLock(100, 10, TimeUnit.SECONDS);
+        if (res) {
+            try {
+
             } finally {
                 lock.unlock();
             }
