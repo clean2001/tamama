@@ -26,6 +26,9 @@ spring:
 #    redis:
 #      port: 6379
 #      host: 127.0.0.1
+  batch:
+    job:
+      enabled: true
 logging:
   level:
     org.hibernate.sql: debug
