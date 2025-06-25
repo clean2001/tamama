@@ -29,6 +29,9 @@ spring:
   batch:
     job:
       enabled: true
+      name: job
+    jdbc:
+      initialize-schema: always # 운영 환경에서는 자동 생성되지 않도록 never로 많이 설정
 logging:
   level:
     org.hibernate.sql: debug
